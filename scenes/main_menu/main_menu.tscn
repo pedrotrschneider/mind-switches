@@ -1,8 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/book/book.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/main_menu/books.gd" type="Script" id=2]
 [ext_resource path="res://resources/runtime_data/runtime_data.tres" type="Resource" id=3]
+[ext_resource path="res://scenes/main_menu/main_menu.gd" type="Script" id=4]
+[ext_resource path="res://scenes/main_menu/back_button.gd" type="Script" id=5]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 25, 50 )
@@ -24,6 +26,38 @@ size = Vector3( 4, 1, 0.64 )
 
 [sub_resource type="BoxShape" id=7]
 extents = Vector3( 2.09875, 2.76981, 2.36513 )
+
+[sub_resource type="Animation" id=9]
+resource_name = "SpotLight"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpotLight:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 6.0 ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "BookSelected"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 0.133972 ),
+"update": 0,
+"values": [ Vector3( 6.551, 18.85, -12.345 ), Vector3( 9.551, 18.85, -12.345 ), Vector3( 7.551, 18.85, -12.345 ) ]
+}
 
 [sub_resource type="Animation" id=8]
 resource_name = "SelectedShelf"
@@ -53,6 +87,9 @@ tracks/1/keys = {
 }
 
 [node name="MainMenu" type="Spatial"]
+script = ExtResource( 4 )
+_runtime_data = ExtResource( 3 )
+_camera_animation_player = NodePath("AnimationPlayer")
 
 [node name="Wall" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.61396, 0, 0 )
@@ -81,8 +118,9 @@ material/0 = SubResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18.9954, -11.6126 )
 script = ExtResource( 2 )
 _runtime_data = ExtResource( 3 )
-_animation_player = NodePath("../AnimationPlayer")
-_back_button = NodePath("../CanvasLayer/BackButton")
+_area = NodePath("Area")
+_spot_light_animation_player = NodePath("AnimationPlayer")
+_spot_light = NodePath("SpotLight")
 
 [node name="Book" parent="Books" instance=ExtResource( 1 )]
 _albedo = Color( 0.960784, 0.054902, 0.054902, 1 )
@@ -119,6 +157,17 @@ material/0 = SubResource( 5 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.412718, -0.944642 )
 shape = SubResource( 7 )
 
+[node name="SpotLight" type="SpotLight" parent="Books"]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 5.00775, 0.245342, -1.035 )
+visible = false
+light_energy = 0.0
+shadow_enabled = true
+spot_range = 10.8148
+spot_angle = 37.9105
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Books"]
+anims/SpotLight = SubResource( 9 )
+
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.894633, -0.28824, 0.341394, -0.0389418, 0.710873, 0.702241, -0.445102, -0.641543, 0.624746, 22.8566, 28.1555, 0 )
 light_energy = 0.5
@@ -136,6 +185,7 @@ omni_range = 27.7169
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21.3393, 13.9617, 0.074337 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/BookSelected = SubResource( 10 )
 anims/SelectedShelf = SubResource( 8 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -147,5 +197,8 @@ margin_top = 12.5992
 margin_right = 55.2292
 margin_bottom = 32.5992
 text = "Back"
+script = ExtResource( 5 )
 [connection signal="input_event" from="Books/Area" to="Books" method="_on_Area_input_event"]
-[connection signal="pressed" from="CanvasLayer/BackButton" to="Books" method="_on_BackButton_pressed"]
+[connection signal="mouse_entered" from="Books/Area" to="Books" method="_on_Area_mouse_entered"]
+[connection signal="mouse_exited" from="Books/Area" to="Books" method="_on_Area_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/BackButton" to="CanvasLayer/BackButton" method="_on_BackButton_pressed"]

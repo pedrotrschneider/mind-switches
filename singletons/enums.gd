@@ -7,5 +7,6 @@ enum GameplayStates {
 
 enum MainMenuState {
 	SELECTING,
-	SELECTED
+	BOOKSHELF_SELECTED,
+	BOOK_SELECTED
 }

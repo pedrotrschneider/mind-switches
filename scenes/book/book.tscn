@@ -1,7 +1,7 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/book/book.gd" type="Script" id=1]
-
+[ext_resource path="res://resources/runtime_data/runtime_data.tres" type="Resource" id=2]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -21,6 +21,22 @@ size = Vector3( 1, 1, 1 )
 
 [sub_resource type="BoxShape" id=7]
 extents = Vector3( 1.6, 0.422852, 2.24 )
+
+[sub_resource type="Animation" id=10]
+resource_name = "BookActive"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("BookMesh:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0.6, 0 ) ]
+}
 
 [sub_resource type="Animation" id=8]
 length = 0.4
@@ -100,7 +116,23 @@ tracks/2/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, 180, 0 ) ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=12]
+resource_name = "BookSelected"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("BookMesh:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.6, 0 ), Vector3( 5, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=11]
 tracks/0/type = "value"
 tracks/0/path = NodePath("BookMesh:translation")
 tracks/0/interp = 1
@@ -200,6 +232,8 @@ tracks/7/keys = {
 
 [node name="Book" type="Spatial"]
 script = ExtResource( 1 )
+_runtime_data = ExtResource( 2 )
+_animation_player = NodePath("AnimationController")
 
 [node name="BookMesh" type="Spatial" parent="."]
 transform = Transform( 0.16, 0, 0, 0, 0.16, 0, 0, 0, 0.16, 0, 0, 0 )
@@ -252,6 +286,11 @@ transform = Transform( 1, 0, 0, 0, 1, -3.55271e-15, 0, 3.55271e-15, 1, 0, 0, 0 )
 shape = SubResource( 7 )
 
 [node name="AnimationController" type="AnimationPlayer" parent="."]
+anims/BookActive = SubResource( 10 )
 anims/BookClose = SubResource( 8 )
 anims/BookOpen = SubResource( 9 )
-anims/Origin = SubResource( 10 )
+anims/BookSelected = SubResource( 12 )
+anims/Origin = SubResource( 11 )
+[connection signal="input_event" from="SelectableArea" to="." method="_on_SelectableArea_input_event"]
+[connection signal="mouse_entered" from="SelectableArea" to="." method="_on_SelectableArea_mouse_entered"]
+[connection signal="mouse_exited" from="SelectableArea" to="." method="_on_SelectableArea_mouse_exited"]

@@ -20,13 +20,14 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Mind-switches-menu-test"
+config/name="Mind switches"
 run/main_scene="res://scenes/main_menu/main_menu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Enums="*res://singletons/enums.gd"
+GameEvents="*res://singletons/game_events.gd"
 
 [rendering]
 
