@@ -234,6 +234,9 @@ tracks/7/keys = {
 script = ExtResource( 1 )
 _runtime_data = ExtResource( 2 )
 _animation_player = NodePath("AnimationController")
+_spine_mesh = NodePath("BookMesh/Spine/Spine")
+_front_cover_mesh = NodePath("BookMesh/FrontRotationPivot/FrontCover/Cover")
+_back_cover_mesh = NodePath("BookMesh/BackRotationPivot/BackCover/Cover")
 
 [node name="BookMesh" type="Spatial" parent="."]
 transform = Transform( 0.16, 0, 0, 0, 0.16, 0, 0, 0, 0.16, 0, 0, 0 )

@@ -24,5 +24,8 @@ func _on_bookshelf_selectd() -> void:
 	_camera_animation_player.play("SelectedShelf");
 
 
-func _on_book_selected() -> void:
+func _on_book_selected(z_global_pos) -> void:
+	var value: Vector3 = _camera_animation_player.get_animation("BookSelected").track_get_key_value(0, 2);
+	value.z = z_global_pos;
+	_camera_animation_player.get_animation("BookSelected").track_set_key_value(0, 2, value);
 	_camera_animation_player.play("BookSelected");
