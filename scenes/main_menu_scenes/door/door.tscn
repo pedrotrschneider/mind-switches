@@ -7,8 +7,7 @@
 size = Vector3( 1, 18.5, 10.5 )
 
 [sub_resource type="SpatialMaterial" id=2]
-albedo_color = Color( 0.760784, 0.760784, 0.760784, 1 )
-metallic = 0.29
+metallic = 1.0
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 1, 9.06392, 5.24367 )
@@ -30,7 +29,7 @@ tracks/0/keys = {
 }
 
 [node name="Door" type="Spatial"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.63956, 9.24325, 11.593 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.64, 9, 11.5 )
 script = ExtResource( 1 )
 _runtime_data = ExtResource( 2 )
 _animation_player = NodePath("AnimationPlayer")
