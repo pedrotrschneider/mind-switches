@@ -10,6 +10,7 @@ func _ready() -> void:
 	_garbage = GameEvents.connect("back_button_pressed", self, "_on_back_button_pressed");
 	_garbage = GameEvents.connect("bookshelf_selectd", self, "_on_bookshelf_selectd");
 	_garbage = GameEvents.connect("book_selected", self, "_on_book_selected");
+	_garbage = GameEvents.connect("door_selected", self, "_on_door_selected");
 
 
 func _on_back_button_pressed() -> void:
@@ -29,3 +30,9 @@ func _on_book_selected(z_global_pos) -> void:
 	value.z = z_global_pos;
 	_camera_animation_player.get_animation("BookSelected").track_set_key_value(0, 2, value);
 	_camera_animation_player.play("BookSelected");
+
+
+func _on_door_selected() -> void:
+	_camera_animation_player.play("DoorSelected");
+	yield(_camera_animation_player, "animation_finished");
+	_runtime_data.current_gameplay_state = Enums.GameplayStates.MAIN_MENU;

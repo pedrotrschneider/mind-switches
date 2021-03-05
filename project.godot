@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Mind switches"
-run/main_scene="res://scenes/main_menu/main_menu.tscn"
+run/main_scene="res://scenes/app/app.tscn"
 config/icon="res://icon.png"
 
 [autoload]
