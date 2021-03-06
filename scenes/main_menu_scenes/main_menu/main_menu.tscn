@@ -1,0 +1,150 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://scenes/main_menu_scenes/main_menu/small_room_lighting.gd" type="Script" id=1]
+[ext_resource path="res://scenes/main_menu_scenes/door/door.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/main_menu_scenes/wall/wall.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/main_menu_scenes/books/books.tscn" type="PackedScene" id=4]
+[ext_resource path="res://resources/runtime_data/runtime_data.tres" type="Resource" id=5]
+[ext_resource path="res://scenes/main_menu_scenes/main_menu/main_menu.gd" type="Script" id=6]
+
+[sub_resource type="Animation" id=1]
+resource_name = "OscilatingLight"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PurpleLight:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 3.0, 1.0, 3.0 ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 0.133972 ),
+"update": 0,
+"values": [ Vector3( 6.551, 18.85, -12.57 ), Vector3( 9.551, 18.85, -12.57 ), Vector3( 7.551, 18.85, -12.57 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "DoorSelected"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 21.3, 14, 0 ), Vector3( -0.047904, 10.7774, 11.616 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 21.3, 14, 0 ), Vector3( 6.551, 18.85, -12.57 ) ]
+}
+
+[sub_resource type="Environment" id=5]
+ambient_light_color = Color( 1, 1, 1, 1 )
+ambient_light_energy = 0.05
+ambient_light_sky_contribution = 0.1
+fog_color = Color( 0.807843, 0.87451, 0.937255, 1 )
+fog_depth_curve = 1.8025
+auto_exposure_max_luma = 16.0
+auto_exposure_speed = 0.01
+ss_reflections_enabled = true
+ss_reflections_fade_in = 0.166436
+ss_reflections_fade_out = 9.18958
+ss_reflections_roughness = false
+ssao_radius = 128.0
+dof_blur_far_distance = 50.0
+glow_enabled = true
+glow_strength = 0.83
+glow_bloom = 0.05
+glow_blend_mode = 0
+adjustment_enabled = true
+adjustment_brightness = 0.9
+adjustment_contrast = 1.2
+adjustment_saturation = 1.1
+
+[node name="MainMenu" type="Spatial"]
+script = ExtResource( 6 )
+_runtime_data = ExtResource( 5 )
+_camera_animation_player = NodePath("AnimationPlayer")
+
+[node name="Wall" parent="." instance=ExtResource( 3 )]
+
+[node name="Door" parent="." instance=ExtResource( 2 )]
+
+[node name="Books" parent="." instance=ExtResource( 4 )]
+
+[node name="MainRoomLighting" type="Spatial" parent="."]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="MainRoomLighting"]
+transform = Transform( 0.894633, -0.28824, 0.341394, -0.0389418, 0.710873, 0.702242, -0.445102, -0.641543, 0.624746, 22.8566, 28.1555, 0 )
+light_energy = 0.5
+shadow_enabled = true
+
+[node name="OmniLight" type="OmniLight" parent="MainRoomLighting"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.35837, 19.0763, 15.1463 )
+omni_range = 27.7169
+
+[node name="OmniLight2" type="OmniLight" parent="MainRoomLighting"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.35837, 19.0763, -19.3952 )
+omni_range = 27.7169
+
+[node name="SmallRoomLighting" type="Spatial" parent="."]
+script = ExtResource( 1 )
+_animation_player = NodePath("AnimationPlayer")
+
+[node name="PurpleLight" type="OmniLight" parent="SmallRoomLighting"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.8297, 8.66017, 17.122 )
+light_color = Color( 0.756863, 0.2, 0.984314, 1 )
+light_energy = 2.5
+light_indirect_energy = 0.0
+light_specular = 1.0
+shadow_enabled = true
+omni_range = 30.4753
+omni_attenuation = 0.0853776
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SmallRoomLighting"]
+anims/OscilatingLight = SubResource( 1 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21.3, 14, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/BookSelected = SubResource( 2 )
+anims/DoorSelected = SubResource( 3 )
+anims/SelectedShelf = SubResource( 4 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 5 )
+
+[node name="CSGBox" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.5755, 13.9474 )
