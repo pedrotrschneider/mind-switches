@@ -14,7 +14,7 @@ var _selected: bool = false;
 func _ready() -> void:
 	_garbage = GameEvents.connect("back_button_pressed", self, "_on_back_button_pressed");
 	
-	var _cover_material: SpatialMaterial = SpatialMaterial.new()
+	var _cover_material: SpatialMaterial = SpatialMaterial.new();
 	_cover_material.albedo_color = _albedo;
 	_spine_mesh.material_override = _cover_material;
 	_front_cover_mesh.material_override = _cover_material;

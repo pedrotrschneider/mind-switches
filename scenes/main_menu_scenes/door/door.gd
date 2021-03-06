@@ -24,6 +24,7 @@ func _on_Area_input_event(_camera, event, _click_position, _click_normal, _shape
 	if(_runtime_data.current_gameplay_state == Enums.GameplayStates.MAIN_MENU \
 		&& _runtime_data.current_main_menu_state == Enums.MainMenuState.SELECTING):
 		if(event is InputEventMouseButton):
-			GameEvents.emit_door_selected_signal();
-			_runtime_data.current_gameplay_state = Enums.GameplayStates.ANIMATING;
-			_runtime_data.current_main_menu_state = Enums.MainMenuState.DOOR_SELECTED;
+			if(event.button_index == BUTTON_LEFT && event.pressed):
+				GameEvents.emit_door_selected_signal();
+				_runtime_data.current_gameplay_state = Enums.GameplayStates.ANIMATING;
+				_runtime_data.current_main_menu_state = Enums.MainMenuState.DOOR_SELECTED;

@@ -21,10 +21,7 @@ func _on_Area_input_event(_camera, event, _click_position, _click_normal, _shape
 				GameEvents.emit_bookshelf_selected_signal();
 				_area.hide();
 				_spot_light_animation_player.play_backwards("SpotLight");
-				yield(get_tree().create_timer(1.0), "timeout");
-				_runtime_data.current_gameplay_state = Enums.GameplayStates.MAIN_MENU;
-				_runtime_data.current_main_menu_state = Enums.MainMenuState.BOOKSHELF_SELECTED;
-				GameEvents.emit_show_back_button_signal();
+				yield(_spot_light_animation_player, "animation_finished");
 				_spot_light.hide();
 
 

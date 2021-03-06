@@ -23,6 +23,10 @@ func _on_back_button_pressed() -> void:
 
 func _on_bookshelf_selectd() -> void:
 	_camera_animation_player.play("SelectedShelf");
+	yield(_camera_animation_player, "animation_finished");
+	_runtime_data.current_gameplay_state = Enums.GameplayStates.MAIN_MENU;
+	_runtime_data.current_main_menu_state = Enums.MainMenuState.BOOKSHELF_SELECTED;
+	GameEvents.emit_show_back_button_signal();
 
 
 func _on_book_selected(z_global_pos) -> void:
@@ -35,4 +39,5 @@ func _on_book_selected(z_global_pos) -> void:
 func _on_door_selected() -> void:
 	_camera_animation_player.play("DoorSelected");
 	yield(_camera_animation_player, "animation_finished");
-	_runtime_data.current_gameplay_state = Enums.GameplayStates.MAIN_MENU;
+	_runtime_data.current_gameplay_state = Enums.GameplayStates.LEVEL;
+	GameEvents.emit_go_to_level_signal();

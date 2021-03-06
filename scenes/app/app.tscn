@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/app/app.gd" type="Script" id=1]
 [ext_resource path="res://scenes/app/back_button.gd" type="Script" id=2]
+[ext_resource path="res://scenes/app/confirm_button.gd" type="Script" id=3]
+[ext_resource path="res://scenes/app/finish_switches.gd" type="Script" id=4]
+[ext_resource path="res://scenes/app/reset_minds.gd" type="Script" id=5]
 
 [node name="App" type="Spatial"]
 script = ExtResource( 1 )
@@ -19,4 +22,43 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ConfirmButton" type="Button" parent="CanvasLayer"]
+visible = false
+margin_left = 953.577
+margin_top = 571.81
+margin_right = 1015.58
+margin_bottom = 591.81
+text = "Confirm"
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FinishSwitches" type="Button" parent="CanvasLayer"]
+visible = false
+margin_left = 10.0341
+margin_top = 570.086
+margin_right = 120.034
+margin_bottom = 590.086
+text = "Finish Switches"
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResetMinds" type="Button" parent="CanvasLayer"]
+visible = false
+margin_left = 10.0341
+margin_top = 570.086
+margin_right = 120.034
+margin_bottom = 590.086
+text = "Reset Minds"
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="CanvasLayer/BackButton" to="CanvasLayer/BackButton" method="_on_BackButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/ConfirmButton" to="CanvasLayer/ConfirmButton" method="_on_ConfirmButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/FinishSwitches" to="CanvasLayer/FinishSwitches" method="_on_FinishSwitches_pressed"]
+[connection signal="pressed" from="CanvasLayer/ResetMinds" to="CanvasLayer/ResetMinds" method="_on_ResetMinds_pressed"]

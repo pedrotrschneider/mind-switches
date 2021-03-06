@@ -2,6 +2,7 @@ extends Node
 
 enum GameplayStates {
 	MAIN_MENU,
+	LEVEL,
 	ANIMATING
 }
 
@@ -10,4 +11,10 @@ enum MainMenuState {
 	BOOKSHELF_SELECTED,
 	BOOK_SELECTED,
 	DOOR_SELECTED
+}
+
+enum LevelStates {
+	SELECTING,
+	SWITCHING,
+	SOLVING
 }

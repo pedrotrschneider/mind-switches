@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/game_scenes/body/body.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/game_scenes/level/level.gd" type="Script" id=2]
+[ext_resource path="res://resources/runtime_data/runtime_data.tres" type="Resource" id=3]
+
+[sub_resource type="PlaneMesh" id=1]
+size = Vector2( 20, 20 )
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 1, 0.427451, 0.0823529, 1 )
+
+[node name="Level" type="Spatial"]
+script = ExtResource( 2 )
+_colors = [ Color( 0.705882, 0.172549, 0.172549, 1 ), Color( 0.113725, 0.309804, 0.776471, 1 ), Color( 0.917647, 0.976471, 0.0509804, 1 ), Color( 0.933333, 0.294118, 0.752941, 1 ), Color( 0.27451, 0.905882, 0.0784314, 1 ), Color( 0.0784314, 0.945098, 0.94902, 1 ), Color( 0.823529, 0.482353, 0.109804, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
+_runtime_data = ExtResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0299072, -4.76837e-07, 0.0301163 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="Body" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.349, 0, 3.839 )
+
+[node name="Body2" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.933, 0, 0.652214 )
+
+[node name="Body3" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.05564, -9.53674e-07, -3.10629 )
+
+[node name="Body4" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.37294, -9.53674e-07, -1.41127 )
+
+[node name="Body5" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.21594, -1.90735e-06, 4.55229 )
+
+[node name="Body6" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.26848, -9.53674e-07, -3.3813 )
+
+[node name="Body7" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.97532, -9.53674e-07, -6.67676 )
+
+[node name="Body8" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.07043, -1.90735e-06, 1.27709 )
+visible = false
+
+[node name="Body9" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.97204, -1.90735e-06, -0.777305 )
+visible = false
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -1.51757e-07, -0.363804, 0.931476, -5.92712e-08, 0.931476, 0.363804, -1, 0, -1.62921e-07, 10.4644, 3.97503, -0.440625 )

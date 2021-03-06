@@ -6,3 +6,4 @@
 script = ExtResource( 1 )
 current_gameplay_state = 0
 current_main_menu_state = 0
+current_level_state = 0
