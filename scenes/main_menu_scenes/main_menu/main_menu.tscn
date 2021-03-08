@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/main_menu_scenes/main_menu/small_room_lighting.gd" type="Script" id=1]
 [ext_resource path="res://scenes/main_menu_scenes/door/door.tscn" type="PackedScene" id=2]
@@ -6,9 +6,10 @@
 [ext_resource path="res://scenes/main_menu_scenes/books/books.tscn" type="PackedScene" id=4]
 [ext_resource path="res://resources/runtime_data/runtime_data.tres" type="Resource" id=5]
 [ext_resource path="res://scenes/main_menu_scenes/main_menu/main_menu.gd" type="Script" id=6]
+[ext_resource path="res://scenes/main_menu_scenes/table/table.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/main_menu_scenes/brain/brain.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Animation" id=1]
-resource_name = "OscilatingLight"
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -40,7 +41,6 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=3]
-resource_name = "DoorSelected"
 length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Camera:translation")
@@ -97,7 +97,12 @@ script = ExtResource( 6 )
 _runtime_data = ExtResource( 5 )
 _camera_animation_player = NodePath("AnimationPlayer")
 
+[node name="Table" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 4.60099, 9.55437, -10.7343 )
+use_in_baked_light = true
+
 [node name="Wall" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.67601, 0.10305, -0.0206413 )
 
 [node name="Door" parent="." instance=ExtResource( 2 )]
 
@@ -109,6 +114,9 @@ _camera_animation_player = NodePath("AnimationPlayer")
 transform = Transform( 0.894633, -0.28824, 0.341394, -0.0389418, 0.710873, 0.702242, -0.445102, -0.641543, 0.624746, 22.8566, 28.1555, 0 )
 light_energy = 0.5
 shadow_enabled = true
+shadow_bias = 0.0
+directional_shadow_mode = 0
+directional_shadow_depth_range = 1
 
 [node name="OmniLight" type="OmniLight" parent="MainRoomLighting"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.35837, 19.0763, 15.1463 )
@@ -116,6 +124,8 @@ omni_range = 27.7169
 
 [node name="OmniLight2" type="OmniLight" parent="MainRoomLighting"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.35837, 19.0763, -19.3952 )
+shadow_bias = 16.0
+shadow_reverse_cull_face = true
 omni_range = 27.7169
 
 [node name="SmallRoomLighting" type="Spatial" parent="."]
@@ -123,14 +133,16 @@ script = ExtResource( 1 )
 _animation_player = NodePath("AnimationPlayer")
 
 [node name="PurpleLight" type="OmniLight" parent="SmallRoomLighting"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.8297, 8.66017, 17.122 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.8297, 8.66017, 11.6423 )
 light_color = Color( 0.756863, 0.2, 0.984314, 1 )
 light_energy = 2.5
 light_indirect_energy = 0.0
 light_specular = 1.0
 shadow_enabled = true
-omni_range = 30.4753
-omni_attenuation = 0.0853776
+shadow_bias = 0.0
+shadow_reverse_cull_face = true
+omni_range = 23.8249
+omni_attenuation = 0.241484
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SmallRoomLighting"]
 anims/OscilatingLight = SubResource( 1 )
@@ -145,3 +157,6 @@ anims/SelectedShelf = SubResource( 4 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 5 )
+
+[node name="Brain" parent="." instance=ExtResource( 8 )]
+transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 5.018, 10.2912, -10.7054 )

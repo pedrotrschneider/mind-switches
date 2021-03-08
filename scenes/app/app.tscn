@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/app/app.gd" type="Script" id=1]
 [ext_resource path="res://scenes/app/back_button.gd" type="Script" id=2]
@@ -6,8 +6,25 @@
 [ext_resource path="res://scenes/app/finish_switches.gd" type="Script" id=4]
 [ext_resource path="res://scenes/app/reset_minds.gd" type="Script" id=5]
 
+[sub_resource type="Animation" id=1]
+resource_name = "Fade"
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/Fade:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+
 [node name="App" type="Spatial"]
 script = ExtResource( 1 )
+_animation_player = NodePath("AnimationPlayer")
+_fade_rect = NodePath("CanvasLayer/Fade")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -58,6 +75,18 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Fade" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Fade = SubResource( 1 )
 [connection signal="pressed" from="CanvasLayer/BackButton" to="CanvasLayer/BackButton" method="_on_BackButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/ConfirmButton" to="CanvasLayer/ConfirmButton" method="_on_ConfirmButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/FinishSwitches" to="CanvasLayer/FinishSwitches" method="_on_FinishSwitches_pressed"]
