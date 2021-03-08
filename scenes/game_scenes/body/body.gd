@@ -19,7 +19,7 @@ func _set_body_color(value: Color) -> void:
 	body_color = value;
 	var _body_material: SpatialMaterial = SpatialMaterial.new();
 	_body_material.albedo_color = body_color;
-	_body_mesh.material_override = _body_material;
+	_body_mesh.set_material(_body_material);
 
 
 func _on_Area_input_event(_camera, event, _click_position, _click_normal, _shape_idx):
