@@ -14,6 +14,8 @@ var _minds_solving_init_config = [];
 var _switches_buffer_solving_init_config = [];
 
 func _ready() -> void:
+	GameEvents.emit_fade_in_signal(0.6);
+	
 	_garbage = GameEvents.connect("body_selected", self, "_on_body_selected");
 	_garbage = GameEvents.connect("confirm_button_pressed", self, "_on_confirm_button_pressed")
 	_garbage = GameEvents.connect("finish_switches_button_pressed", self, "_on_finish_switches_button_pressed");

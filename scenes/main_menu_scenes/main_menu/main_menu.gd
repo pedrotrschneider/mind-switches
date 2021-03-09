@@ -37,6 +37,7 @@ func _on_book_selected(z_global_pos) -> void:
 
 
 func _on_door_selected() -> void:
+	GameEvents.emit_fade_out_signal(0.6);
 	_camera_animation_player.play("DoorSelected");
 	yield(_camera_animation_player, "animation_finished");
 	_runtime_data.current_gameplay_state = Enums.GameplayStates.LEVEL;

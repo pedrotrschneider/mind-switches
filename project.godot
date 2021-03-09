@@ -29,6 +29,10 @@ config/icon="res://icon.png"
 Enums="*res://singletons/enums.gd"
 GameEvents="*res://singletons/game_events.gd"
 
+[display]
+
+window/stretch/mode="2d"
+
 [rendering]
 
 quality/shadows/filter_mode=2

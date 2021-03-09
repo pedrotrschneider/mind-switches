@@ -19,6 +19,9 @@ signal reset_minds_button_pressed;
 signal hide_reset_minds_button;
 signal show_reset_minds_button;
 
+signal fade_in(duration);
+signal fade_out(duration);
+
 #------------------------------------
 # MAIN MENU SIGNALS
 #------------------------------------
@@ -84,6 +87,13 @@ func emit_hide_reset_minds_button_signal() -> void:
 func emit_show_reset_minds_button_signal() -> void:
 	emit_signal("show_reset_minds_button");
 
+
+func emit_fade_in_signal(duration: float):
+	emit_signal("fade_in", duration);
+
+
+func emit_fade_out_signal(duration: float):
+	emit_signal("fade_out", duration);
 #------------------------------------
 # MAIN MENU EMITTERS
 #------------------------------------

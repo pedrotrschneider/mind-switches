@@ -13,12 +13,20 @@ func _ready():
 	self.add_child(main_menu_instance);
 	
 	_garbage = GameEvents.connect("go_to_level", self, "_on_go_to_level");
-	_garbage = GameEvents.connect("door_selected", self, "_on_door_selected");
+	_garbage = GameEvents.connect("fade_in", self, "_on_fade_in");
+	_garbage = GameEvents.connect("fade_out", self, "_on_fade_out");
 
 
-func _on_door_selected() -> void:
+func _on_fade_in(duration: float) -> void:
 	_fade_rect.show();
-	_animation_player.play("Fade", -1, (1 / 0.6));
+	_animation_player.play("FadeIn", -1, (1 / duration));
+	yield(_animation_player, "animation_finished");
+	_fade_rect.hide();
+
+
+func _on_fade_out(duration: float) -> void:
+	_fade_rect.show();
+	_animation_player.play("FadeOut", -1, (1 / duration));
 	yield(_animation_player, "animation_finished");
 	_fade_rect.hide();
 
@@ -28,8 +36,3 @@ func _on_go_to_level() -> void:
 	
 	var level_instance = _level_res.instance();
 	self.add_child(level_instance);
-	
-	_fade_rect.show();
-	_animation_player.play_backwards("Fade");
-	yield(_animation_player, "animation_finished");
-	_fade_rect.hide();
