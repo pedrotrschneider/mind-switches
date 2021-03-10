@@ -18,3 +18,8 @@ enum LevelStates {
 	SWITCHING,
 	SOLVING
 }
+
+enum LevelType {
+	LEVEL,
+	SANDBOX
+}

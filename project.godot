@@ -10,11 +10,17 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Resource",
+"class": "LevelData",
+"language": "GDScript",
+"path": "res://resources/level_data/level_data.gd"
+}, {
+"base": "Resource",
 "class": "RuntimeData",
 "language": "GDScript",
 "path": "res://resources/runtime_data/runtime_data.gd"
 } ]
 _global_script_class_icons={
+"LevelData": "",
 "RuntimeData": ""
 }
 

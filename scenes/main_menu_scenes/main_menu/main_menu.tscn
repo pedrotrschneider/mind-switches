@@ -151,7 +151,7 @@ omni_attenuation = 0.241484
 anims/OscilatingLight = SubResource( 1 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.551, 18.85, -12.57 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21.3, 14, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/BookSelected = SubResource( 2 )

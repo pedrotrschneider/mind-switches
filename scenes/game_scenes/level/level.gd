@@ -2,10 +2,16 @@ extends Spatial
 
 var _garbage;
 
-export var _colors = [];
 export(Resource) onready var _runtime_data = _runtime_data as RuntimeData;
+export(Resource) onready var _level_data = _level_data as LevelData;
+export(NodePath) onready var _center_position = get_node(_center_position) as Position3D;
+export(NodePath) onready var _extra1_position = get_node(_extra1_position) as Position3D;
+export(NodePath) onready var _extra2_position = get_node(_extra2_position) as Position3D;
 
+
+onready var _body_scene_res: Resource = preload("res://scenes/game_scenes/body/body.tscn");
 var _num_bodies: int;
+var _colors = [];
 var _bodies = [];
 var _minds = [];
 var _switches_buffer = [];
@@ -21,20 +27,51 @@ func _ready() -> void:
 	_garbage = GameEvents.connect("finish_switches_button_pressed", self, "_on_finish_switches_button_pressed");
 	_garbage = GameEvents.connect("reset_minds_button_pressed", self, "_on_reset_minds_button_pressed");
 	
-	_num_bodies = _colors.size();
-	_bodies.resize(_num_bodies);
-	_minds.resize(_num_bodies);
+	_num_bodies = _level_data.num_bodies;
+	_colors = _level_data.colors;
 	
-	var bodies = get_tree().get_nodes_in_group("Body");
-	var i: int = 0;
-	for body in bodies:
-		body.index = i;
-		body.mind_color = _colors[i];
-		body.body_color = _colors[i];
+	_bodies.resize(_num_bodies + 2);
+	_minds.resize(_num_bodies + 2);
+	
+	var r: float = 5;
+	var sep: float = 360 / _num_bodies;
+	var a: float = 0;
+	for b in _num_bodies:
+		var posX: float = _center_position.global_transform.origin.x + r * cos(deg2rad(a));
+		var posZ: float = _center_position.global_transform.origin.z + r * sin(deg2rad(a));
 		
-		_bodies[i] = i;
-		_minds[i] = i;
-		i += 1;
+		var body_instance = _body_scene_res.instance();
+		self.add_child(body_instance);
+		body_instance.global_transform.origin = Vector3(posX, 0, posZ);
+		body_instance.index = b;
+		body_instance.mind_color = _colors[b];
+		body_instance.body_color = _colors[b];
+#		body_instance.look_at(_center_position.global_transform.origin, Vector3.UP);
+		
+		_bodies[b] = b;
+		_minds[b] = b;
+		
+		a += sep;
+	
+	var body_instance = _body_scene_res.instance();
+	self.add_child(body_instance);
+	body_instance.global_transform.origin = _extra1_position.global_transform.origin;
+	body_instance.index = _num_bodies;
+	body_instance.mind_color = _colors[_num_bodies];
+	body_instance.body_color = _colors[_num_bodies];
+	body_instance.hide();
+	_bodies[_num_bodies] = _num_bodies;
+	_minds[_num_bodies] = _num_bodies;
+	
+	body_instance = _body_scene_res.instance();
+	self.add_child(body_instance);
+	body_instance.global_transform.origin = _extra2_position.global_transform.origin;
+	body_instance.index = _num_bodies + 1;
+	body_instance.mind_color = _colors[_num_bodies + 1];
+	body_instance.body_color = _colors[_num_bodies + 1];
+	body_instance.hide();
+	_bodies[_num_bodies + 1] = _num_bodies + 1;
+	_minds[_num_bodies + 1] = _num_bodies + 1;
 
 
 func _on_body_selected(index) -> void:
@@ -63,6 +100,7 @@ func _on_confirm_button_pressed() -> void:
 func _on_finish_switches_button_pressed() -> void:
 	if(_runtime_data.current_gameplay_state == Enums.GameplayStates.LEVEL\
 		&& _runtime_data.current_level_state == Enums.LevelStates.SELECTING):
+			_selected_bodies.clear();
 			GameEvents.emit_hide_finish_switches_button_signal();
 			GameEvents.emit_show_reset_minds_button_signal();
 			_minds_solving_init_config = _minds.duplicate();
@@ -73,6 +111,7 @@ func _on_finish_switches_button_pressed() -> void:
 
 
 func _on_reset_minds_button_pressed() -> void:
+	_selected_bodies.clear();
 	print(_minds_solving_init_config);
 	var bodies = get_tree().get_nodes_in_group("Body");
 	var i: int = 0;
@@ -108,6 +147,7 @@ func switch() -> void:
 		print(_switches_buffer);
 	else:
 		print("troca rejeitada");
+		GameEvents.emit_rejected_switch_signal();
 	
 	_selected_bodies.clear();
 	_runtime_data.current_level_state = Enums.LevelStates.SELECTING;

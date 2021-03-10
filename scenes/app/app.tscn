@@ -6,7 +6,7 @@
 [ext_resource path="res://scenes/app/finish_switches.gd" type="Script" id=4]
 [ext_resource path="res://scenes/app/reset_minds.gd" type="Script" id=5]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "FadeIn"
 tracks/0/type = "value"
 tracks/0/path = NodePath("CanvasLayer/Fade:color")
@@ -21,8 +21,7 @@ tracks/0/keys = {
 "values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "FadeOut"
+[sub_resource type="Animation" id=2]
 tracks/0/type = "value"
 tracks/0/path = NodePath("CanvasLayer/Fade:color")
 tracks/0/interp = 1
@@ -101,8 +100,8 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/FadeIn = SubResource( 2 )
-anims/FadeOut = SubResource( 1 )
+anims/FadeIn = SubResource( 1 )
+anims/FadeOut = SubResource( 2 )
 [connection signal="pressed" from="CanvasLayer/BackButton" to="CanvasLayer/BackButton" method="_on_BackButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/ConfirmButton" to="CanvasLayer/ConfirmButton" method="_on_ConfirmButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/FinishSwitches" to="CanvasLayer/FinishSwitches" method="_on_FinishSwitches_pressed"]

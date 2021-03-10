@@ -38,6 +38,8 @@ signal go_to_level;
 #------------------------------------
 signal body_selected(index);
 
+signal rejected_switch;
+
 #------------------------------------
 # GLOBAL EMITTERS
 #------------------------------------
@@ -117,3 +119,7 @@ func emit_go_to_level_signal() -> void:
 #------------------------------------
 func emit_body_selected_signal(index: int) -> void:
 	emit_signal("body_selected", index);
+
+
+func emit_rejected_switch_signal() -> void:
+	emit_signal("rejected_switch");

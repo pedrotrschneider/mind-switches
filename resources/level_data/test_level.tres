@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/level_data/level_data.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+level_type = 1
+num_bodies = 7
+colors = [ Color( 0.890196, 0.129412, 0.129412, 1 ), Color( 0.027451, 0.305882, 0.87451, 1 ), Color( 0.105882, 0.94902, 0.807843, 1 ), Color( 0.572549, 0.964706, 0.0823529, 1 ), Color( 0.917647, 0.937255, 0.0509804, 1 ), Color( 0.886275, 0.156863, 0.776471, 1 ), Color( 0.952941, 0.52549, 0.0784314, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]

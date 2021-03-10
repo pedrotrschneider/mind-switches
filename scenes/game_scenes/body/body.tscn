@@ -23,6 +23,7 @@ height = 1.38715
 script = ExtResource( 1 )
 _mind_mesh = NodePath("Mind")
 _body_mesh = NodePath("UpperBody/LowerBody")
+_spot_light = NodePath("SpotLight")
 
 [node name="UpperBody" type="CSGMesh" parent="."]
 transform = Transform( 1, 0, 0, 0, -0.000244423, 1, 0, -1, -0.000244423, 0, 1.50339, 0 )
@@ -51,4 +52,11 @@ material/0 = null
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1.39964, 0 )
 shape = SubResource( 4 )
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 4.49747, 0 )
+visible = false
+light_energy = 4.0
+spot_range = 6.07377
+spot_angle = 31.9786
 [connection signal="input_event" from="Area" to="." method="_on_Area_input_event"]
