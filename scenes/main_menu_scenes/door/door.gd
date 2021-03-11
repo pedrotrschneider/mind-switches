@@ -1,10 +1,14 @@
 extends Spatial
 
+var _garbage;
+
 export(Resource) onready var _runtime_data = _runtime_data as RuntimeData;
 export(NodePath) onready var _animation_player = get_node(_animation_player) as AnimationPlayer;
 
 
 func _ready() -> void:
+	_garbage = GameEvents.connect("open_door", self, "_on_open_door");
+	_garbage = GameEvents.connect("close_door", self, "_on_close_door");
 	pass
 
 
@@ -28,3 +32,11 @@ func _on_Area_input_event(_camera, event, _click_position, _click_normal, _shape
 				GameEvents.emit_door_selected_signal();
 				_runtime_data.current_gameplay_state = Enums.GameplayStates.ANIMATING;
 				_runtime_data.current_main_menu_state = Enums.MainMenuState.DOOR_SELECTED;
+
+
+func _on_open_door() -> void:
+	_animation_player.play("DoorOpen");
+
+
+func _on_close_door() -> void:
+	_animation_player.play_backwards("DoorOpen");

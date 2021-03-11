@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/app/app.gd" type="Script" id=1]
 [ext_resource path="res://scenes/app/back_button.gd" type="Script" id=2]
 [ext_resource path="res://scenes/app/confirm_button.gd" type="Script" id=3]
 [ext_resource path="res://scenes/app/finish_switches.gd" type="Script" id=4]
 [ext_resource path="res://scenes/app/reset_minds.gd" type="Script" id=5]
+[ext_resource path="res://resources/runtime_data/runtime_data.tres" type="Resource" id=6]
 
 [sub_resource type="Animation" id=1]
 resource_name = "FadeIn"
@@ -15,10 +16,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.3, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -37,6 +38,7 @@ tracks/0/keys = {
 
 [node name="App" type="Spatial"]
 script = ExtResource( 1 )
+_runtime_data = ExtResource( 6 )
 _animation_player = NodePath("AnimationPlayer")
 _fade_rect = NodePath("CanvasLayer/Fade")
 
@@ -94,7 +96,7 @@ __meta__ = {
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0 )
+color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

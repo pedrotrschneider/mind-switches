@@ -30,12 +30,19 @@ signal bookshelf_selectd;
 signal book_selected(z_global_pos);
 
 signal door_selected;
+signal open_door;
+signal close_door;
 
-signal go_to_level;
+signal game_type_level_selected;
+signal game_type_sandbox_selected;
 
 #------------------------------------
 # GAME SIGNALS
 #------------------------------------
+signal go_to_level(level_data);
+
+signal go_to_sandbox_creator;
+
 signal body_selected(index);
 
 signal rejected_switch;
@@ -96,6 +103,7 @@ func emit_fade_in_signal(duration: float):
 
 func emit_fade_out_signal(duration: float):
 	emit_signal("fade_out", duration);
+
 #------------------------------------
 # MAIN MENU EMITTERS
 #------------------------------------
@@ -111,12 +119,32 @@ func emit_door_selected_signal() -> void:
 	emit_signal("door_selected");
 
 
-func emit_go_to_level_signal() -> void:
-	emit_signal("go_to_level");
+func emit_open_door_signal() -> void:
+	emit_signal("open_door");
+
+
+func emit_close_door_signal() -> void:
+	emit_signal("close_door");
+
+
+func emit_game_type_level_selected_signal() -> void:
+	emit_signal("game_type_level_selected");
+
+
+func emit_game_type_sandbox_selected_signal() -> void:
+	emit_signal("game_type_sandbox_selected");
 
 #------------------------------------
 # GAME EMITTERS
 #------------------------------------
+func emit_go_to_level_signal(level_data: LevelData) -> void:
+	emit_signal("go_to_level", level_data);
+
+
+func emit_go_to_sandbox_creator_signal() -> void:
+	emit_signal("go_to_sandbox_creator");
+
+
 func emit_body_selected_signal(index: int) -> void:
 	emit_signal("body_selected", index);
 

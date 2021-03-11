@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/main_menu_scenes/main_menu/small_room_lighting.gd" type="Script" id=1]
 [ext_resource path="res://scenes/main_menu_scenes/door/door.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://scenes/main_menu_scenes/main_menu/main_menu.gd" type="Script" id=6]
 [ext_resource path="res://scenes/main_menu_scenes/table/table.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/main_menu_scenes/brain/brain.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/main_menu_scenes/machine/machine.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Animation" id=1]
 length = 0.4
@@ -41,7 +42,6 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=3]
-length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Camera:translation")
 tracks/0/interp = 1
@@ -49,10 +49,22 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6 ),
+"times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector3( 21.3, 14, 0 ), Vector3( -0.047904, 10.7774, 11.616 ) ]
+"values": [ Vector3( 21.3, 14, 0 ), Vector3( -17.7511, 10.7774, 20.9659 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Camera:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 90, 0 ), Vector3( 0, 90, 0 ), Vector3( 0, 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -67,6 +79,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector3( 21.3, 14, 0 ), Vector3( 6.551, 18.85, -12.57 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Camera:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 90, 0 ), Vector3( 0, 90, 0 ) ]
 }
 
 [sub_resource type="Environment" id=5]
@@ -136,22 +160,25 @@ script = ExtResource( 1 )
 _animation_player = NodePath("AnimationPlayer")
 
 [node name="PurpleLight" type="OmniLight" parent="SmallRoomLighting"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.8297, 8.66017, 11.6423 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.2265, 12.5527, 6.58514 )
 light_color = Color( 0.756863, 0.2, 0.984314, 1 )
-light_energy = 2.5
+light_energy = 3.0
 light_indirect_energy = 0.0
 light_specular = 1.0
 shadow_enabled = true
 shadow_bias = 0.0
 shadow_reverse_cull_face = true
-omni_range = 23.8249
+omni_range = 32.2625
 omni_attenuation = 0.241484
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SmallRoomLighting"]
 anims/OscilatingLight = SubResource( 1 )
 
+[node name="Machine" parent="." instance=ExtResource( 9 )]
+transform = Transform( -4.07302e-07, 0, 2.5, 0, 2.5, 0, -2.5, 0, -4.07302e-07, -18.2139, 6.80126, 6.1853 )
+
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21.3, 14, 0 )
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 21.3, 14, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/BookSelected = SubResource( 2 )

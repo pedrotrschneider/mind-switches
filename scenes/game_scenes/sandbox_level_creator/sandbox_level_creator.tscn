@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/game_scenes/sandbox_level_creator/sandbox_level_creator.gd" type="Script" id=1]
+[ext_resource path="res://resources/level_data/sandbox_level.tres" type="Resource" id=2]
+
+[node name="SandboxLevelCreator" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+_text_input = NodePath("LineEdit")
+_level_data = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 338.801
+margin_top = 238.708
+margin_right = 502.801
+margin_bottom = 252.708
+text = "Select number of bodies: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit" type="LineEdit" parent="."]
+margin_left = 501.652
+margin_top = 238.708
+margin_right = 559.651
+margin_bottom = 262.708
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -79.1436
+margin_top = -35.874
+margin_right = -17.1436
+margin_bottom = -15.874
+text = "Confirm"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

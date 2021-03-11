@@ -3,12 +3,11 @@ extends Spatial
 var _garbage;
 
 export(Resource) onready var _runtime_data = _runtime_data as RuntimeData;
-export(Resource) onready var _level_data = _level_data as LevelData;
 export(NodePath) onready var _center_position = get_node(_center_position) as Position3D;
 export(NodePath) onready var _extra1_position = get_node(_extra1_position) as Position3D;
 export(NodePath) onready var _extra2_position = get_node(_extra2_position) as Position3D;
 
-
+var level_data:LevelData;
 onready var _body_scene_res: Resource = preload("res://scenes/game_scenes/body/body.tscn");
 var _num_bodies: int;
 var _colors = [];
@@ -27,14 +26,19 @@ func _ready() -> void:
 	_garbage = GameEvents.connect("finish_switches_button_pressed", self, "_on_finish_switches_button_pressed");
 	_garbage = GameEvents.connect("reset_minds_button_pressed", self, "_on_reset_minds_button_pressed");
 	
-	_num_bodies = _level_data.num_bodies;
-	_colors = _level_data.colors;
+	_num_bodies = level_data.num_bodies;
+	_colors = level_data.colors;
 	
 	_bodies.resize(_num_bodies + 2);
 	_minds.resize(_num_bodies + 2);
 	
+	_minds = level_data.initial_minds;
+	for b in (_num_bodies + 2):
+		_bodies[b] = b;
+	_switches_buffer = level_data.initial_switches;
+	
 	var r: float = 5;
-	var sep: float = 360 / _num_bodies;
+	var sep: float = 360.0 / float(_num_bodies);
 	var a: float = 0;
 	for b in _num_bodies:
 		var posX: float = _center_position.global_transform.origin.x + r * cos(deg2rad(a));
@@ -46,10 +50,6 @@ func _ready() -> void:
 		body_instance.index = b;
 		body_instance.mind_color = _colors[b];
 		body_instance.body_color = _colors[b];
-#		body_instance.look_at(_center_position.global_transform.origin, Vector3.UP);
-		
-		_bodies[b] = b;
-		_minds[b] = b;
 		
 		a += sep;
 	
@@ -60,8 +60,6 @@ func _ready() -> void:
 	body_instance.mind_color = _colors[_num_bodies];
 	body_instance.body_color = _colors[_num_bodies];
 	body_instance.hide();
-	_bodies[_num_bodies] = _num_bodies;
-	_minds[_num_bodies] = _num_bodies;
 	
 	body_instance = _body_scene_res.instance();
 	self.add_child(body_instance);
@@ -70,8 +68,9 @@ func _ready() -> void:
 	body_instance.mind_color = _colors[_num_bodies + 1];
 	body_instance.body_color = _colors[_num_bodies + 1];
 	body_instance.hide();
-	_bodies[_num_bodies + 1] = _num_bodies + 1;
-	_minds[_num_bodies + 1] = _num_bodies + 1;
+	
+	if(level_data.level_type == Enums.LevelType.LEVEL):
+		_on_finish_switches_button_pressed();
 
 
 func _on_body_selected(index) -> void:

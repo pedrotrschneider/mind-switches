@@ -1,0 +1,97 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scenes/main_menu_scenes/machine/machine.gd" type="Script" id=1]
+[ext_resource path="res://resources/runtime_data/runtime_data.tres" type="Resource" id=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.411765, 0.411765, 0.411765, 1 )
+metallic = 0.52
+metallic_specular = 0.64
+
+[sub_resource type="CapsuleMesh" id=2]
+
+[sub_resource type="SpatialMaterial" id=3]
+flags_transparent = true
+albedo_color = Color( 0.321569, 0.823529, 1, 0.533333 )
+
+[sub_resource type="SphereShape" id=6]
+
+[sub_resource type="SphereShape" id=7]
+
+[node name="Machine" type="CSGBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
+cast_shadow = 0
+width = 0.25
+height = 5.0
+depth = 0.25
+material = SubResource( 1 )
+script = ExtResource( 1 )
+_runtime_data = ExtResource( 2 )
+
+[node name="Container" type="CSGMesh" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 2.37969, 0 )
+cast_shadow = 0
+mesh = SubResource( 2 )
+material = SubResource( 3 )
+
+[node name="HorBeam" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
+cast_shadow = 0
+width = 0.25
+height = 0.25
+depth = 5.0
+material = SubResource( 1 )
+
+[node name="Helmet1" type="CSGSphere" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21009, 1.97707 )
+cast_shadow = 0
+radial_segments = 32
+rings = 32
+material = SubResource( 1 )
+
+[node name="CSGBox" type="CSGBox" parent="Helmet1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+cast_shadow = 0
+operation = 2
+material = SubResource( 1 )
+
+[node name="CSGSphere" type="CSGSphere" parent="Helmet1"]
+cast_shadow = 0
+operation = 2
+radius = 0.9
+radial_segments = 32
+rings = 32
+material = SubResource( 1 )
+
+[node name="HelmetArea1" type="Area" parent="Helmet1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Helmet1/HelmetArea1"]
+shape = SubResource( 6 )
+
+[node name="Helmet2" type="CSGSphere" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21, -1.977 )
+cast_shadow = 0
+radial_segments = 32
+rings = 32
+material = SubResource( 1 )
+
+[node name="CSGBox" type="CSGBox" parent="Helmet2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+cast_shadow = 0
+operation = 2
+material = SubResource( 1 )
+
+[node name="CSGSphere" type="CSGSphere" parent="Helmet2"]
+cast_shadow = 0
+operation = 2
+radius = 0.9
+radial_segments = 32
+rings = 32
+material = SubResource( 1 )
+
+[node name="HelmetAera2" type="Area" parent="Helmet2"]
+
+[node name="CollisionPolygon" type="CollisionShape" parent="Helmet2/HelmetAera2"]
+shape = SubResource( 7 )
+[connection signal="input_event" from="Helmet1/HelmetArea1" to="." method="_on_HelmetArea1_input_event"]
+[connection signal="input_event" from="Helmet2/HelmetAera2" to="." method="_on_HelmetAera2_input_event"]

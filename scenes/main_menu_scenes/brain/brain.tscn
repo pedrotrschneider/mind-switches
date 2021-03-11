@@ -1,16 +1,33 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
-[sub_resource type="CylinderMesh" id=6]
+[sub_resource type="CylinderMesh" id=1]
 height = 0.3
 
 [sub_resource type="SpatialMaterial" id=2]
 albedo_color = Color( 1, 0.560784, 0, 1 )
 
 [sub_resource type="SpatialMaterial" id=3]
+flags_transparent = true
+albedo_color = Color( 0, 0.847059, 1, 0.623529 )
+metallic = 0.79
+
+[sub_resource type="CapsuleMesh" id=4]
+radius = 0.9
+mid_height = 3.0
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_transparent = true
+albedo_color = Color( 0.239216, 0.980392, 1, 0.301961 )
+metallic = 0.79
+
+[sub_resource type="CapsuleMesh" id=6]
+radius = 0.8
+mid_height = 3.0
+
+[sub_resource type="SpatialMaterial" id=7]
 albedo_color = Color( 1, 0.4, 0.623529, 1 )
 
-[sub_resource type="Animation" id=4]
-resource_name = "FloatingBrain"
+[sub_resource type="Animation" id=8]
 length = 4.0
 loop = true
 tracks/0/type = "value"
@@ -26,38 +43,39 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0.871115, 0 ), Vector3( 0, 1.22328, 0 ), Vector3( 0, 0.871115, 0 ) ]
 }
 
-[sub_resource type="SpatialMaterial" id=1]
-flags_transparent = true
-albedo_color = Color( 0, 0.847059, 1, 0.623529 )
-metallic = 0.79
-
-[sub_resource type="CapsuleMesh" id=5]
-radius = 0.9
-mid_height = 3.0
-
 [node name="Brain" type="Spatial"]
 
 [node name="Base" type="MeshInstance" parent="."]
-mesh = SubResource( 6 )
+mesh = SubResource( 1 )
 material/0 = SubResource( 2 )
+
+[node name="Glass" type="CSGMesh" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+material_override = SubResource( 3 )
+mesh = SubResource( 4 )
+
+[node name="CSGBox" type="CSGBox" parent="Glass"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.13224e-07, 1.30876 )
+operation = 2
+depth = 2.44018
+
+[node name="Glass2" type="CSGMesh" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+material_override = SubResource( 5 )
+mesh = SubResource( 6 )
+
+[node name="CSGBox" type="CSGBox" parent="Glass2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.13224e-07, 1.30876 )
+operation = 2
+depth = 2.44018
 
 [node name="Brain" type="CSGSphere" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.871115, 0 )
-material_override = SubResource( 3 )
+material_override = SubResource( 7 )
 radius = 0.7
 radial_segments = 32
 rings = 16
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "FloatingBrain"
-anims/FloatingBrain = SubResource( 4 )
-
-[node name="Glass" type="CSGMesh" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
-material_override = SubResource( 1 )
-mesh = SubResource( 5 )
-
-[node name="CSGBox" type="CSGBox" parent="Glass"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.13224e-07, 1.30876 )
-operation = 2
-depth = 2.44018
+anims/FloatingBrain = SubResource( 8 )
