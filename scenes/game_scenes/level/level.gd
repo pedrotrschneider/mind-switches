@@ -159,7 +159,7 @@ func switch() -> void:
 		
 		print(_minds);
 		print(_switches_buffer);
-		_add_switches_ui(_colors[mind1], _colors[mind2]);
+		_add_switches_ui(_colors[_selected_bodies[0]], _colors[_selected_bodies[1]]);
 	else:
 		print("troca rejeitada");
 		GameEvents.emit_rejected_switch_signal();
