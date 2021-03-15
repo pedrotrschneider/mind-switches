@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/game_scenes/level_loader/level_loader.gd" type="Script" id=1]
+[ext_resource path="res://resources/level_data/level1.tres" type="Resource" id=2]
+
+[node name="LevelLoader" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+level1 = ExtResource( 2 )
+
+[node name="Button1" type="Button" parent="."]
+margin_left = 92.4986
+margin_top = 87.4532
+margin_right = 112.499
+margin_bottom = 107.453
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Button1" to="." method="_on_Button1_pressed"]

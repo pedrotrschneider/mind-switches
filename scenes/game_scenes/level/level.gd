@@ -6,6 +6,9 @@ export(Resource) onready var _runtime_data = _runtime_data as RuntimeData;
 export(NodePath) onready var _center_position = get_node(_center_position) as Position3D;
 export(NodePath) onready var _extra1_position = get_node(_extra1_position) as Position3D;
 export(NodePath) onready var _extra2_position = get_node(_extra2_position) as Position3D;
+export(NodePath) onready var _vertical_box = get_node(_vertical_box) as VBoxContainer;
+
+onready var _swtich_ui_res = preload("res://scenes/game_scenes/switch_ui/switch_ui.tscn");
 
 var level_data:LevelData;
 onready var _body_scene_res: Resource = preload("res://scenes/game_scenes/body/body.tscn");
@@ -48,7 +51,7 @@ func _ready() -> void:
 		self.add_child(body_instance);
 		body_instance.global_transform.origin = Vector3(posX, 0, posZ);
 		body_instance.index = b;
-		body_instance.mind_color = _colors[b];
+		body_instance.mind_color = _colors[_minds[b]];
 		body_instance.body_color = _colors[b];
 		
 		a += sep;
@@ -57,7 +60,7 @@ func _ready() -> void:
 	self.add_child(body_instance);
 	body_instance.global_transform.origin = _extra1_position.global_transform.origin;
 	body_instance.index = _num_bodies;
-	body_instance.mind_color = _colors[_num_bodies];
+	body_instance.mind_color = _colors[_minds[_num_bodies]];
 	body_instance.body_color = _colors[_num_bodies];
 	body_instance.hide();
 	
@@ -65,9 +68,15 @@ func _ready() -> void:
 	self.add_child(body_instance);
 	body_instance.global_transform.origin = _extra2_position.global_transform.origin;
 	body_instance.index = _num_bodies + 1;
-	body_instance.mind_color = _colors[_num_bodies + 1];
+	body_instance.mind_color = _colors[_minds[_num_bodies + 1]];
 	body_instance.body_color = _colors[_num_bodies + 1];
 	body_instance.hide();
+	
+	for s in _switches_buffer.size():
+		if(s % 2 == 0):
+			continue;
+		
+		_add_switches_ui(_colors[_switches_buffer[s][0]], _colors[_switches_buffer[s][1]]);
 	
 	if(level_data.level_type == Enums.LevelType.LEVEL):
 		_on_finish_switches_button_pressed();
@@ -119,6 +128,12 @@ func _on_reset_minds_button_pressed() -> void:
 		i += 1;
 	
 	_minds = _minds_solving_init_config.duplicate();
+	
+	var switches_ui = _vertical_box.get_children();
+	var dif = _switches_buffer.size() - _switches_buffer_solving_init_config.size();
+	for j in dif / 2:
+		switches_ui[_switches_buffer_solving_init_config.size() / 2 + j].queue_free();
+	
 	_switches_buffer = _switches_buffer_solving_init_config.duplicate();
 
 
@@ -144,6 +159,7 @@ func switch() -> void:
 		
 		print(_minds);
 		print(_switches_buffer);
+		_add_switches_ui(_colors[mind1], _colors[mind2]);
 	else:
 		print("troca rejeitada");
 		GameEvents.emit_rejected_switch_signal();
@@ -154,3 +170,11 @@ func switch() -> void:
 	
 	if(_switches_buffer.size() > 1):
 		GameEvents.emit_show_finish_switches_button_signal();
+
+
+func _add_switches_ui(col1: Color, col2: Color):
+	var switch_ui_instance = _swtich_ui_res.instance();
+	switch_ui_instance.col1 = col1;
+	switch_ui_instance.col2 = col2;
+	
+	_vertical_box.add_child(switch_ui_instance);

@@ -59,7 +59,10 @@ func _on_door_selected() -> void:
 
 
 func _on_game_type_level_selected() -> void:
-	print("game type level selected");
+	GameEvents.emit_hide_back_button_signal();
+	GameEvents.emit_fade_out_signal(0.6);
+	yield(get_tree().create_timer(0.6), "timeout");
+	GameEvents.emit_go_to_level_loader_signal();
 
 
 func _on_game_type_sandbox_selected() -> void:

@@ -42,6 +42,7 @@ signal game_type_sandbox_selected;
 signal go_to_level(level_data);
 
 signal go_to_sandbox_creator;
+signal go_to_level_loader;
 
 signal body_selected(index);
 
@@ -143,6 +144,10 @@ func emit_go_to_level_signal(level_data: LevelData) -> void:
 
 func emit_go_to_sandbox_creator_signal() -> void:
 	emit_signal("go_to_sandbox_creator");
+
+
+func emit_go_to_level_loader_signal() -> void:
+	emit_signal("go_to_level_loader");
 
 
 func emit_body_selected_signal(index: int) -> void:

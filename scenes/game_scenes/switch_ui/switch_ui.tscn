@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/game_scenes/switch_ui/switch_ui.gd" type="Script" id=1]
+
+[node name="SwitchUI" type="Control"]
+margin_right = 124.0
+margin_bottom = 46.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+_rect1 = NodePath("Rect1")
+_rect2 = NodePath("Rect2")
+
+[node name="Rect1" type="ColorRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="."]
+margin_left = 49.9467
+margin_top = 9.51366
+margin_right = 89.9467
+margin_bottom = 23.5137
+text = "<->"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rect2" type="ColorRect" parent="."]
+margin_left = 82.5448
+margin_right = 122.545
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

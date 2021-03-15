@@ -9,10 +9,12 @@ export(NodePath) onready var _fade_rect = get_node(_fade_rect) as ColorRect;
 onready var _main_menu_res: Resource = preload("res://scenes/main_menu_scenes/main_menu/main_menu.tscn");
 onready var _level_res: Resource = preload("res://scenes/game_scenes/level/level.tscn");
 onready var _sandbox_creator_res: Resource = preload("res://scenes/game_scenes/sandbox_level_creator/sandbox_level_creator.tscn");
+onready var _level_laoder_res: Resource = preload("res://scenes/game_scenes/level_loader/level_loader.tscn");
 
 func _ready():
 	_garbage = GameEvents.connect("go_to_level", self, "_on_go_to_level");
 	_garbage = GameEvents.connect("go_to_sandbox_creator", self, "_on_go_to_sandbox_creator");
+	_garbage = GameEvents.connect("go_to_level_loader", self, "_on_go_to_level_loader");
 	_garbage = GameEvents.connect("fade_in", self, "_on_fade_in");
 	_garbage = GameEvents.connect("fade_out", self, "_on_fade_out");
 	
@@ -47,6 +49,16 @@ func _on_go_to_sandbox_creator() -> void:
 	
 	var sandbox_creator_instance = _sandbox_creator_res.instance();
 	self.add_child(sandbox_creator_instance);
+	
+	_runtime_data.current_gameplay_state = Enums.GameplayStates.LEVEL;
+	_runtime_data.current_level_state = Enums.LevelStates.SELECTING;
+
+
+func _on_go_to_level_loader() -> void:
+	self.get_child(get_child_count() - 1).queue_free();
+	
+	var level_loader_instance = _level_laoder_res.instance();
+	self.add_child(level_loader_instance);
 	
 	_runtime_data.current_gameplay_state = Enums.GameplayStates.LEVEL;
 	_runtime_data.current_level_state = Enums.LevelStates.SELECTING;
