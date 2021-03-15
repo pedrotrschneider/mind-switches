@@ -13,8 +13,7 @@ albedo_color = Color( 1, 0.427451, 0.0823529, 1 )
 script = ExtResource( 2 )
 _runtime_data = ExtResource( 3 )
 _center_position = NodePath("CenterPosition")
-_extra1_position = NodePath("Extra1")
-_extra2_position = NodePath("Extra2")
+_extra_positions = [ NodePath("Extra1"), NodePath("Extra2"), NodePath("Extra3") ]
 _vertical_box = NodePath("CanvasLayer/VerticalBox")
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
@@ -32,6 +31,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.02761, 0, 5.99617 )
 
 [node name="Extra2" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.028, 0, -5.996 )
+
+[node name="Extra3" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.028, 0, 0 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -4,8 +4,7 @@ var _garbage;
 
 export(Resource) onready var _runtime_data = _runtime_data as RuntimeData;
 export(NodePath) onready var _center_position = get_node(_center_position) as Position3D;
-export(NodePath) onready var _extra1_position = get_node(_extra1_position) as Position3D;
-export(NodePath) onready var _extra2_position = get_node(_extra2_position) as Position3D;
+export(Array, NodePath) var _extra_positions;
 export(NodePath) onready var _vertical_box = get_node(_vertical_box) as VBoxContainer;
 
 onready var _swtich_ui_res = preload("res://scenes/game_scenes/switch_ui/switch_ui.tscn");
@@ -32,11 +31,11 @@ func _ready() -> void:
 	_num_bodies = level_data.num_bodies;
 	_colors = level_data.colors;
 	
-	_bodies.resize(_num_bodies + 2);
-	_minds.resize(_num_bodies + 2);
+	_bodies.resize(_num_bodies + level_data.num_extras);
+	_minds.resize(_num_bodies + level_data.num_extras);
 	
 	_minds = level_data.initial_minds;
-	for b in (_num_bodies + 2):
+	for b in (_num_bodies + level_data.num_extras):
 		_bodies[b] = b;
 	_switches_buffer = level_data.initial_switches;
 	
@@ -56,21 +55,15 @@ func _ready() -> void:
 		
 		a += sep;
 	
-	var body_instance = _body_scene_res.instance();
-	self.add_child(body_instance);
-	body_instance.global_transform.origin = _extra1_position.global_transform.origin;
-	body_instance.index = _num_bodies;
-	body_instance.mind_color = _colors[_minds[_num_bodies]];
-	body_instance.body_color = _colors[_num_bodies];
-	body_instance.hide();
-	
-	body_instance = _body_scene_res.instance();
-	self.add_child(body_instance);
-	body_instance.global_transform.origin = _extra2_position.global_transform.origin;
-	body_instance.index = _num_bodies + 1;
-	body_instance.mind_color = _colors[_minds[_num_bodies + 1]];
-	body_instance.body_color = _colors[_num_bodies + 1];
-	body_instance.hide();
+	for e in level_data.num_extras:
+		_extra_positions[e] = get_node(_extra_positions[e]) as Position3D;
+		var body_instance = _body_scene_res.instance();
+		self.add_child(body_instance);
+		body_instance.global_transform.origin = _extra_positions[e].global_transform.origin;
+		body_instance.index = _num_bodies + e;
+		body_instance.mind_color = _colors[_minds[_num_bodies + e]];
+		body_instance.body_color = _colors[_num_bodies + e];
+		body_instance.hide();
 	
 	for s in _switches_buffer.size():
 		if(s % 2 == 0):
@@ -119,6 +112,7 @@ func _on_finish_switches_button_pressed() -> void:
 
 
 func _on_reset_minds_button_pressed() -> void:
+	GameEvents.emit_hide_confirm_button_signal();
 	_selected_bodies.clear();
 	print(_minds_solving_init_config);
 	var bodies = get_tree().get_nodes_in_group("Body");

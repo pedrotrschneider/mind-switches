@@ -25,11 +25,12 @@ func _ready() -> void:
 
 func _on_Button_pressed():
 	var num_bodies: int = int(_text_input.text);
+	_level_data.num_extras = 3;
 	_level_data.num_bodies = num_bodies;
-	_level_data.colors.resize(num_bodies + 2);
-	_level_data.initial_minds.resize(num_bodies + 2);
+	_level_data.colors.resize(num_bodies + _level_data.num_extras);
+	_level_data.initial_minds.resize(num_bodies + _level_data.num_extras);
 	
-	for b in (num_bodies + 2):
+	for b in (num_bodies + _level_data.num_extras):
 		_level_data.colors[b] = _colors[b];
 		_level_data.initial_minds[b] = b;
 	
