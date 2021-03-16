@@ -206,6 +206,9 @@ func _on_reset_minds_button_pressed() -> void:
 
 func _on_back_button_pressed() -> void:
 	GameEvents.emit_hide_back_button_signal();
+	GameEvents.emit_hide_confirm_button_signal();
+	GameEvents.emit_hide_finish_switches_button_signal();
+	GameEvents.emit_hide_reset_minds_button_signal();
 	_vertical_box.hide();
 	GameEvents.emit_fade_out_signal(0.6);
 	yield(get_tree().create_timer(0.6), "timeout");
