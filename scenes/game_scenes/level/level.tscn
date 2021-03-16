@@ -13,7 +13,7 @@ albedo_color = Color( 1, 0.427451, 0.0823529, 1 )
 script = ExtResource( 2 )
 _runtime_data = ExtResource( 3 )
 _center_position = NodePath("CenterPosition")
-_extra_positions = [ NodePath("Extra1"), NodePath("Extra2") ]
+_extra_positions_paths = [ NodePath("Extra1"), NodePath("Extra2") ]
 _vertical_box = NodePath("CanvasLayer/VerticalBox")
 _camera = NodePath("Camera")
 

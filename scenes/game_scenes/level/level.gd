@@ -4,7 +4,7 @@ var _garbage;
 
 export(Resource) onready var _runtime_data = _runtime_data as RuntimeData;
 export(NodePath) onready var _center_position = get_node(_center_position) as Position3D;
-export(Array, NodePath) var _extra_positions;
+export(Array, NodePath) var _extra_positions_paths;
 export(NodePath) onready var _vertical_box = get_node(_vertical_box) as VBoxContainer;
 export(NodePath) onready var _camera = get_node(_camera) as Camera;
 
@@ -43,8 +43,9 @@ func _ready() -> void:
 		_bodies[b] = b;
 	_switches_buffer = level_data.initial_switches;
 	
-	for pos_i in _extra_positions.size():
-		_extra_positions[pos_i] = get_node(_extra_positions[pos_i]) as Position3D;
+	var _extra_positions = [0, 0];
+	for pos_i in _extra_positions_paths.size():
+		_extra_positions[pos_i] = get_node(_extra_positions_paths[pos_i]) as Position3D;
 	
 	var r: float;
 	if(_num_bodies == 1):
@@ -140,6 +141,8 @@ func _ready() -> void:
 	
 	if(level_data.level_type == Enums.LevelType.LEVEL):
 		_on_finish_switches_button_pressed();
+	
+	_vertical_box.show();
 
 
 func _on_body_selected(index) -> void:
@@ -184,7 +187,6 @@ func _on_finish_switches_button_pressed() -> void:
 func _on_reset_minds_button_pressed() -> void:
 	GameEvents.emit_hide_confirm_button_signal();
 	GameEvents.emit_enable_body_area_visibility_signal();
-	_selected_bodies.clear();
 	print(_minds_solving_init_config);
 	var bodies = get_tree().get_nodes_in_group("Body");
 	var i: int = 0;
@@ -204,6 +206,7 @@ func _on_reset_minds_button_pressed() -> void:
 
 func _on_back_button_pressed() -> void:
 	GameEvents.emit_hide_back_button_signal();
+	_vertical_box.hide();
 	GameEvents.emit_fade_out_signal(0.6);
 	yield(get_tree().create_timer(0.6), "timeout");
 	if(level_data.level_type == Enums.LevelType.SANDBOX):
