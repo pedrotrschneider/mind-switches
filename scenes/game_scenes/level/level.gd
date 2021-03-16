@@ -6,6 +6,7 @@ export(Resource) onready var _runtime_data = _runtime_data as RuntimeData;
 export(NodePath) onready var _center_position = get_node(_center_position) as Position3D;
 export(Array, NodePath) var _extra_positions;
 export(NodePath) onready var _vertical_box = get_node(_vertical_box) as VBoxContainer;
+export(NodePath) onready var _camera = get_node(_camera) as Camera;
 
 onready var _swtich_ui_res = preload("res://scenes/game_scenes/switch_ui/switch_ui.tscn");
 
@@ -27,6 +28,9 @@ func _ready() -> void:
 	_garbage = GameEvents.connect("confirm_button_pressed", self, "_on_confirm_button_pressed")
 	_garbage = GameEvents.connect("finish_switches_button_pressed", self, "_on_finish_switches_button_pressed");
 	_garbage = GameEvents.connect("reset_minds_button_pressed", self, "_on_reset_minds_button_pressed");
+	_garbage = GameEvents.connect("back_button_pressed", self, "_on_back_button_pressed");
+	
+	GameEvents.emit_show_back_button_signal();
 	
 	_num_bodies = level_data.num_bodies;
 	_colors = level_data.colors;
@@ -39,7 +43,71 @@ func _ready() -> void:
 		_bodies[b] = b;
 	_switches_buffer = level_data.initial_switches;
 	
-	var r: float = 5;
+	for pos_i in _extra_positions.size():
+		_extra_positions[pos_i] = get_node(_extra_positions[pos_i]) as Position3D;
+	
+	var r: float;
+	if(_num_bodies == 1):
+		r = 0;
+		
+		var camera_pos: Vector3 = Vector3(10.471, 9.458, 0);
+		var _camera_rot: Vector3 = Vector3(-55.42, 90, 0);
+		_camera.global_transform.origin = camera_pos;
+		_camera.rotation_degrees = _camera_rot;
+		
+		_extra_positions[0].global_transform.origin.x += 0;
+		_extra_positions[1].global_transform.origin.x += 0;
+	elif(_num_bodies <= 5):
+		r = 3;
+		
+		var camera_pos: Vector3 = Vector3(10.471, 9.458, 0);
+		var _camera_rot: Vector3 = Vector3(-55.42, 90, 0);
+		_camera.global_transform.origin = camera_pos;
+		_camera.rotation_degrees = _camera_rot;
+		
+		_extra_positions[0].global_transform.origin.x += 0;
+		_extra_positions[1].global_transform.origin.x += 0;
+	elif(_num_bodies <= 10):
+		r = 5;
+		
+		var camera_pos: Vector3 = Vector3(10.471, 9.458, 0);
+		var _camera_rot: Vector3 = Vector3(-55.42, 90, 0);
+		_camera.global_transform.origin = camera_pos;
+		_camera.rotation_degrees = _camera_rot;
+		
+		_extra_positions[0].global_transform.origin.x += 0;
+		_extra_positions[1].global_transform.origin.x += 0;
+	elif(_num_bodies <= 14):
+		r = 7;
+		
+		var camera_pos: Vector3 = Vector3(10.471, 9.458, 0);
+		var _camera_rot: Vector3 = Vector3(-55.42, 90, 0);
+		_camera.global_transform.origin = camera_pos;
+		_camera.rotation_degrees = _camera_rot;
+		
+		_extra_positions[0].global_transform.origin.x += 0;
+		_extra_positions[1].global_transform.origin.x += 0;
+	elif(_num_bodies <= 17):
+		r = 9;
+		
+		var camera_pos: Vector3 = Vector3(17.385, 10.292, 0);
+		var _camera_rot: Vector3 = Vector3(-34.90, 90, 0);
+		_camera.global_transform.origin = camera_pos;
+		_camera.rotation_degrees = _camera_rot;
+		
+		_extra_positions[0].global_transform.origin.x += 3;
+		_extra_positions[1].global_transform.origin.x += 3;
+	elif(_num_bodies > 17):
+		r = 11;
+		
+		var camera_pos: Vector3 = Vector3(17.385, 10.292, 0);
+		var _camera_rot: Vector3 = Vector3(-34.90, 90, 0);
+		_camera.global_transform.origin = camera_pos;
+		_camera.rotation_degrees = _camera_rot;
+		
+		_extra_positions[0].global_transform.origin.x += 4;
+		_extra_positions[1].global_transform.origin.x += 4;
+	
 	var sep: float = 360.0 / float(_num_bodies);
 	var a: float = 0;
 	for b in _num_bodies:
@@ -56,7 +124,6 @@ func _ready() -> void:
 		a += sep;
 	
 	for e in level_data.num_extras:
-		_extra_positions[e] = get_node(_extra_positions[e]) as Position3D;
 		var body_instance = _body_scene_res.instance();
 		self.add_child(body_instance);
 		body_instance.global_transform.origin = _extra_positions[e].global_transform.origin;
@@ -81,8 +148,6 @@ func _on_body_selected(index) -> void:
 		if(!_selected_bodies.has(index)):
 			if(_selected_bodies.size() < 2):
 				_selected_bodies.append(index);
-				if(_selected_bodies.size() == 2):
-					GameEvents.emit_disable_body_area_visibility_signal();
 		else:
 			GameEvents.emit_enable_body_area_visibility_signal();
 			_selected_bodies.remove(_selected_bodies.find(index));
@@ -136,6 +201,15 @@ func _on_reset_minds_button_pressed() -> void:
 	
 	_switches_buffer = _switches_buffer_solving_init_config.duplicate();
 
+
+func _on_back_button_pressed() -> void:
+	GameEvents.emit_hide_back_button_signal();
+	GameEvents.emit_fade_out_signal(0.6);
+	yield(get_tree().create_timer(0.6), "timeout");
+	if(level_data.level_type == Enums.LevelType.SANDBOX):
+		GameEvents.emit_go_to_sandbox_creator_signal();
+	elif(level_data.level_type == Enums.LevelType.LEVEL):
+		GameEvents.emit_go_to_level_loader_signal();
 
 
 func switch() -> void:

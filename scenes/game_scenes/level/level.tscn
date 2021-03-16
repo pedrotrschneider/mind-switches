@@ -4,7 +4,7 @@
 [ext_resource path="res://resources/runtime_data/runtime_data.tres" type="Resource" id=3]
 
 [sub_resource type="PlaneMesh" id=1]
-size = Vector2( 30, 50 )
+size = Vector2( 40, 50 )
 
 [sub_resource type="SpatialMaterial" id=2]
 albedo_color = Color( 1, 0.427451, 0.0823529, 1 )
@@ -13,8 +13,9 @@ albedo_color = Color( 1, 0.427451, 0.0823529, 1 )
 script = ExtResource( 2 )
 _runtime_data = ExtResource( 3 )
 _center_position = NodePath("CenterPosition")
-_extra_positions = [ NodePath("Extra1"), NodePath("Extra2"), NodePath("Extra3") ]
+_extra_positions = [ NodePath("Extra1"), NodePath("Extra2") ]
 _vertical_box = NodePath("CanvasLayer/VerticalBox")
+_camera = NodePath("Camera")
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0299072, -4.76837e-07, 0.0301163 )
@@ -22,7 +23,7 @@ mesh = SubResource( 1 )
 material/0 = SubResource( 2 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( -7.47036e-08, -0.888681, 0.458526, -1.44785e-07, 0.458526, 0.888681, -1, 9.9476e-14, -1.62921e-07, 10.4712, 12.6534, 0 )
+transform = Transform( -1.33615e-07, -0.572188, 0.820122, -9.32216e-08, 0.820122, 0.572188, -1, -1.42109e-14, -1.62921e-07, 17.385, 10.292, 0 )
 
 [node name="CenterPosition" type="Position3D" parent="."]
 
@@ -32,16 +33,15 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.02761, 0, 5.99617 )
 [node name="Extra2" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.028, 0, -5.996 )
 
-[node name="Extra3" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.028, 0, 0 )
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="VerticalBox" type="VBoxContainer" parent="CanvasLayer"]
-margin_left = 10.0
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -136.908
 margin_top = 10.0
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = -116.908
+margin_bottom = 30.0
 size_flags_horizontal = 2
 size_flags_vertical = 2
 custom_constants/separation = 48

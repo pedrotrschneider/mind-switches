@@ -40,9 +40,9 @@ signal game_type_sandbox_selected;
 # GAME SIGNALS
 #------------------------------------
 signal go_to_level(level_data);
-
 signal go_to_sandbox_creator;
 signal go_to_level_loader;
+signal go_to_main_menu;
 
 signal body_selected(index);
 signal enable_body_area_visibility;
@@ -151,6 +151,10 @@ func emit_go_to_sandbox_creator_signal() -> void:
 func emit_go_to_level_loader_signal() -> void:
 	emit_signal("go_to_level_loader");
 
+
+
+func emit_go_to_main_menu_signal() -> void:
+	emit_signal("go_to_main_menu");
 
 func emit_body_selected_signal(index: int) -> void:
 	emit_signal("body_selected", index);

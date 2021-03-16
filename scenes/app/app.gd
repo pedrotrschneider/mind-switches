@@ -15,6 +15,7 @@ func _ready():
 	_garbage = GameEvents.connect("go_to_level", self, "_on_go_to_level");
 	_garbage = GameEvents.connect("go_to_sandbox_creator", self, "_on_go_to_sandbox_creator");
 	_garbage = GameEvents.connect("go_to_level_loader", self, "_on_go_to_level_loader");
+	_garbage = GameEvents.connect("go_to_main_menu", self, "_on_go_to_main_menu");
 	_garbage = GameEvents.connect("fade_in", self, "_on_fade_in");
 	_garbage = GameEvents.connect("fade_out", self, "_on_fade_out");
 	
@@ -62,3 +63,13 @@ func _on_go_to_level_loader() -> void:
 	
 	_runtime_data.current_gameplay_state = Enums.GameplayStates.LEVEL;
 	_runtime_data.current_level_state = Enums.LevelStates.SELECTING;
+
+
+func _on_go_to_main_menu() -> void:
+	self.get_child((get_child_count() - 1)).queue_free();
+	
+	var main_menu_instance = _main_menu_res.instance();
+	self.add_child(main_menu_instance);
+	
+	_runtime_data.current_gameplay_state = Enums.GameplayStates.MAIN_MENU;
+	_runtime_data.current_main_menu_state = Enums.MainMenuState.SELECTING;
