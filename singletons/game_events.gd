@@ -45,6 +45,8 @@ signal go_to_sandbox_creator;
 signal go_to_level_loader;
 
 signal body_selected(index);
+signal enable_body_area_visibility;
+signal disable_body_area_visibility;
 
 signal rejected_switch;
 
@@ -156,3 +158,11 @@ func emit_body_selected_signal(index: int) -> void:
 
 func emit_rejected_switch_signal() -> void:
 	emit_signal("rejected_switch");
+
+
+func emit_enable_body_area_visibility_signal() -> void:
+	emit_signal("enable_body_area_visibility");
+
+
+func emit_disable_body_area_visibility_signal() -> void:
+	emit_signal("disable_body_area_visibility");

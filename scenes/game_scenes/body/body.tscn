@@ -24,6 +24,7 @@ script = ExtResource( 1 )
 _mind_mesh = NodePath("Mind")
 _body_mesh = NodePath("UpperBody/LowerBody")
 _spot_light = NodePath("SpotLight")
+_selectable_area = NodePath("Area")
 
 [node name="UpperBody" type="CSGMesh" parent="."]
 transform = Transform( 1, 0, 0, 0, -0.000244423, 1, 0, -1, -0.000244423, 0, 1.50339, 0 )
