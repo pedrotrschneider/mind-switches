@@ -2,7 +2,8 @@ extends Control
 
 var _garbage;
 
-export(NodePath) onready var _text_input = get_node(_text_input) as LineEdit;
+export(NodePath) onready var _num_bodies_input = get_node(_num_bodies_input) as LineEdit;
+export(NodePath) onready var _num_extra_bodies_input = get_node(_num_extra_bodies_input) as LineEdit;
 export(Resource) onready var _level_data = _level_data as LevelData;
 
 var _colors = [
@@ -162,9 +163,10 @@ func _ready() -> void:
 
 
 func _on_Button_pressed():
-	var num_bodies: int = int(_text_input.text);
-	_level_data.num_extras = 2;
+	var num_bodies: int = int(_num_bodies_input.text);
+	var num_extra_bodies: int = int(_num_extra_bodies_input.text);
 	_level_data.num_bodies = num_bodies;
+	_level_data.num_extras = num_extra_bodies;
 	_level_data.colors.resize(num_bodies + _level_data.num_extras);
 	_level_data.initial_minds.resize(num_bodies + _level_data.num_extras);
 	

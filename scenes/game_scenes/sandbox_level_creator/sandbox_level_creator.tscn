@@ -6,28 +6,15 @@
 [node name="SandboxLevelCreator" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 0.667419
+margin_right = 0.66748
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-_text_input = NodePath("LineEdit")
+_num_bodies_input = NodePath("NumBodiesInput/LineEdit")
+_num_extra_bodies_input = NodePath("NumExtraBodiesInput2/LineEdit")
 _level_data = ExtResource( 2 )
-
-[node name="Label" type="Label" parent="."]
-margin_left = 338.801
-margin_top = 238.708
-margin_right = 502.801
-margin_bottom = 252.708
-text = "Select number of bodies: "
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LineEdit" type="LineEdit" parent="."]
-margin_left = 501.652
-margin_top = 238.708
-margin_right = 559.651
-margin_bottom = 262.708
 
 [node name="Button" type="Button" parent="."]
 anchor_left = 1.0
@@ -42,4 +29,44 @@ text = "Confirm"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="NumBodiesInput" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="NumBodiesInput"]
+margin_left = 338.801
+margin_top = 238.708
+margin_right = 502.801
+margin_bottom = 252.708
+text = "Select number of bodies: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit" type="LineEdit" parent="NumBodiesInput"]
+margin_left = 501.652
+margin_top = 238.708
+margin_right = 559.652
+margin_bottom = 262.708
+
+[node name="NumExtraBodiesInput2" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="NumExtraBodiesInput2"]
+margin_left = 338.801
+margin_top = 287.43
+margin_right = 538.801
+margin_bottom = 301.43
+text = "Select number of extra bodies: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit" type="LineEdit" parent="NumExtraBodiesInput2"]
+margin_left = 543.032
+margin_top = 287.43
+margin_right = 601.032
+margin_bottom = 311.43
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
