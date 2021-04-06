@@ -38,7 +38,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.028, 0, -5.996 )
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -140.0
+margin_left = -151.0
 margin_top = 11.0
 margin_right = -4.0
 margin_bottom = 507.0
