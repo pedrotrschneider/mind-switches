@@ -14,7 +14,7 @@ script = ExtResource( 2 )
 _runtime_data = ExtResource( 3 )
 _center_position = NodePath("CenterPosition")
 _extra_positions_paths = [ NodePath("Extra1"), NodePath("Extra2") ]
-_vertical_box = NodePath("CanvasLayer/VerticalBox")
+_vertical_box = NodePath("CanvasLayer/ScrollContainer/VerticalBox")
 _camera = NodePath("Camera")
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
@@ -35,15 +35,20 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.028, 0, -5.996 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="VerticalBox" type="VBoxContainer" parent="CanvasLayer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -136.908
-margin_top = 10.0
-margin_right = -116.908
-margin_bottom = 30.0
-size_flags_horizontal = 2
-size_flags_vertical = 2
+margin_left = -182.0
+margin_top = 11.0
+margin_right = -4.0
+margin_bottom = 507.0
+scroll_horizontal_enabled = false
+scroll_deadzone = -1000
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VerticalBox" type="VBoxContainer" parent="CanvasLayer/ScrollContainer"]
 custom_constants/separation = 48
 __meta__ = {
 "_edit_use_anchors_": false
