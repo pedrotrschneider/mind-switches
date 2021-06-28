@@ -14,9 +14,9 @@ metallic_specular = 0.64
 flags_transparent = true
 albedo_color = Color( 0.321569, 0.823529, 1, 0.533333 )
 
-[sub_resource type="SphereShape" id=6]
+[sub_resource type="SphereShape" id=4]
 
-[sub_resource type="SphereShape" id=7]
+[sub_resource type="SphereShape" id=5]
 
 [node name="Machine" type="CSGBox"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
@@ -27,6 +27,8 @@ depth = 0.25
 material = SubResource( 1 )
 script = ExtResource( 1 )
 _runtime_data = ExtResource( 2 )
+_helmet1_selectable_area = NodePath("Helmet1/HelmetArea1")
+_helmet2_selectable_area = NodePath("Helmet2/HelmetAera2")
 
 [node name="Container" type="CSGMesh" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 2.37969, 0 )
@@ -66,7 +68,7 @@ material = SubResource( 1 )
 [node name="HelmetArea1" type="Area" parent="Helmet1"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Helmet1/HelmetArea1"]
-shape = SubResource( 6 )
+shape = SubResource( 4 )
 
 [node name="Helmet2" type="CSGSphere" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21, -1.977 )
@@ -92,6 +94,4 @@ material = SubResource( 1 )
 [node name="HelmetAera2" type="Area" parent="Helmet2"]
 
 [node name="CollisionPolygon" type="CollisionShape" parent="Helmet2/HelmetAera2"]
-shape = SubResource( 7 )
-[connection signal="input_event" from="Helmet1/HelmetArea1" to="." method="_on_HelmetArea1_input_event"]
-[connection signal="input_event" from="Helmet2/HelmetAera2" to="." method="_on_HelmetAera2_input_event"]
+shape = SubResource( 5 )

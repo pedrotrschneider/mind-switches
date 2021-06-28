@@ -12,23 +12,9 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+_level_data = ExtResource( 2 )
 _num_bodies_input = NodePath("NumBodiesInput/LineEdit")
 _num_extra_bodies_input = NodePath("NumExtraBodiesInput2/LineEdit")
-_level_data = ExtResource( 2 )
-
-[node name="Button" type="Button" parent="."]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -79.1436
-margin_top = -35.874
-margin_right = -17.1436
-margin_bottom = -15.874
-text = "Confirm"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="NumBodiesInput" type="Control" parent="."]
 margin_right = 40.0
@@ -69,4 +55,3 @@ margin_left = 543.032
 margin_top = 287.43
 margin_right = 601.032
 margin_bottom = 311.43
-[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

@@ -237,6 +237,7 @@ _animation_player = NodePath("AnimationController")
 _spine_mesh = NodePath("BookMesh/Spine/Spine")
 _front_cover_mesh = NodePath("BookMesh/FrontRotationPivot/FrontCover/Cover")
 _back_cover_mesh = NodePath("BookMesh/BackRotationPivot/BackCover/Cover")
+_selectable_area = NodePath("SelectableArea")
 
 [node name="BookMesh" type="Spatial" parent="."]
 transform = Transform( 0.16, 0, 0, 0, 0.16, 0, 0, 0, 0.16, 0, 0, 0 )
@@ -294,6 +295,3 @@ anims/BookClose = SubResource( 9 )
 anims/BookOpen = SubResource( 10 )
 anims/BookSelected = SubResource( 11 )
 anims/Origin = SubResource( 12 )
-[connection signal="input_event" from="SelectableArea" to="." method="_on_SelectableArea_input_event"]
-[connection signal="mouse_entered" from="SelectableArea" to="." method="_on_SelectableArea_mouse_entered"]
-[connection signal="mouse_exited" from="SelectableArea" to="." method="_on_SelectableArea_mouse_exited"]

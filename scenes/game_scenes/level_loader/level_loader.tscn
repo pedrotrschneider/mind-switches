@@ -11,6 +11,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 level1 = ExtResource( 2 )
+button1 = NodePath("Button1")
 
 [node name="Button1" type="Button" parent="."]
 margin_left = 92.4986
@@ -21,4 +22,3 @@ text = "1"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="Button1" to="." method="_on_Button1_pressed"]

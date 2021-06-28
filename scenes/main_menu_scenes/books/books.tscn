@@ -36,9 +36,9 @@ tracks/0/keys = {
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18.9954, -11.6126 )
 script = ExtResource( 4 )
 _runtime_data = ExtResource( 2 )
-_area = NodePath("Area")
-_spot_light_animation_player = NodePath("AnimationPlayer")
+_selectable_area = NodePath("SelectableArea")
 _spot_light = NodePath("SpotLight")
+_spot_light_animation_player = NodePath("AnimationPlayer")
 
 [node name="Book" parent="." instance=ExtResource( 1 )]
 _albedo = Color( 0.960784, 0.054902, 0.054902, 1 )
@@ -69,9 +69,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.46023, -2.86482 )
 mesh = SubResource( 3 )
 material/0 = SubResource( 2 )
 
-[node name="Area" type="Area" parent="."]
+[node name="SelectableArea" type="Area" parent="."]
 
-[node name="CollisionShape" type="CollisionShape" parent="Area"]
+[node name="CollisionShape" type="CollisionShape" parent="SelectableArea"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.412718, -0.944642 )
 shape = SubResource( 4 )
 
@@ -85,6 +85,3 @@ spot_angle = 37.9105
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/SpotLight = SubResource( 5 )
-[connection signal="input_event" from="Area" to="." method="_on_Area_input_event"]
-[connection signal="mouse_entered" from="Area" to="." method="_on_Area_mouse_entered"]
-[connection signal="mouse_exited" from="Area" to="." method="_on_Area_mouse_exited"]

@@ -17,9 +17,7 @@ height = 0.4
 radius = 0.753736
 height = 1.38715
 
-[node name="Body" type="Spatial" groups=[
-"Body",
-]]
+[node name="Body" type="Spatial"]
 script = ExtResource( 1 )
 _mind_mesh = NodePath("Mind")
 _body_mesh = NodePath("UpperBody/LowerBody")
@@ -60,4 +58,5 @@ visible = false
 light_energy = 4.0
 spot_range = 6.07377
 spot_angle = 31.9786
+
 [connection signal="input_event" from="Area" to="." method="_on_Area_input_event"]

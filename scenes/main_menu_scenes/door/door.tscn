@@ -33,6 +33,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.64, 9, 11.5 )
 script = ExtResource( 1 )
 _runtime_data = ExtResource( 2 )
 _animation_player = NodePath("AnimationPlayer")
+_selectable_area = NodePath("SelectableArea")
 
 [node name="RotationPivot" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.38419e-07, 0, 5.4151 )
@@ -42,13 +43,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.4151 )
 mesh = SubResource( 1 )
 material/0 = SubResource( 2 )
 
-[node name="Area" type="Area" parent="."]
+[node name="SelectableArea" type="Area" parent="."]
 
-[node name="CollisionShape" type="CollisionShape" parent="Area"]
+[node name="CollisionShape" type="CollisionShape" parent="SelectableArea"]
 shape = SubResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/DoorOpen = SubResource( 4 )
-[connection signal="input_event" from="Area" to="." method="_on_Area_input_event"]
-[connection signal="mouse_entered" from="Area" to="." method="_on_Area_mouse_entered"]
-[connection signal="mouse_exited" from="Area" to="." method="_on_Area_mouse_exited"]
